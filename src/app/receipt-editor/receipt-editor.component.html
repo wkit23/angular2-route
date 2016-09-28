@@ -1,0 +1,45 @@
+<form #f="ngForm" (ngSubmit)="onSave()" class="form-horizontal">
+  <nav>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button class="btn btn-danger" (click)="onCancel">Cancel</button>
+  </nav>
+
+  <div *ngIf="errorMsg" class="alert alert-danger" role="alert">{{ errorMsg }}</div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="createTime">Create Time</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="createTime" placeholder="Select Create Time" [(ngModel)]="orderDate" name="createTime" required (ngModelChange)="onDateChanged($event)" />
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Items</div>
+    <div class="panel-body">
+      <nav>
+        <button class="btn btn-default" (click)="onAddItem()"><span class="glyphicon glyphicon-plus"></span></button>
+      </nav>
+      <br />
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.orderItems;let i = index">
+            <td><button class="btn btn-default" (click)="onDeleteItem(item)"><span class="glyphicon glyphicon-minus"></span></button></td>
+            <td><input type="text" class="form-control" [(ngModel)]="item.name" placeholder="Item Name" name="name-{{i}}" required/></td>
+            <td><input type="number" class="form-control" [(ngModel)]="item.quantity" placeholder="Quantity" name="quantity-{{i}}" required/></td>
+            <td><input type="number" class="form-control" [(ngModel)]="item.unitPrice" placeholder="Unit Price" name="unitPrice-{{i}}" required/></td>
+            <td>{{ item.getTotalPrice() | currency:"MYR"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>

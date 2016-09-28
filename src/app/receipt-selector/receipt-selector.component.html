@@ -1,14 +1,21 @@
-<table class="table table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>Order Id</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let order of orders">
-      <td><a routerLink="/receipt/{{order.id}}">{{order.id}}</a></td>
-      <td>{{ order.getTotal() | currency:"MYR" }}</td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <nav>
+    <a routerLink="/receipt/edit/new" role="button"><span class="glyphicon glyphicon-plus"></span></a>
+  </nav>
+  <br/>
+
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td><a routerLink="/receipt/edit/{{order.id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;<a routerLink="/receipt/{{order.id}}">{{order.id}}</a></td>
+        <td>{{ order.getTotal() | currency:"MYR" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
