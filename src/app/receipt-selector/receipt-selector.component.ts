@@ -11,21 +11,26 @@ import { Order } from '../model/order';
 export class ReceiptSelectorComponent implements OnInit {
   orders:Array<Order>;
 
-  constructor(orderService:OrderService) {
+  constructor(private orderService:OrderService) {
     this.orders = [];
 
     // LocalStorage 
-    //this.orders = orderService.getAllOrder();
+    this.orders = orderService.getAllOrder();
 
     // Promise
     // orderService.getAllOrdersFromUrl()
     //   .then(resp => this.orders = resp );
 
-    orderService.getAllOrdersFromUrlOb()
-      .subscribe(resp => this.orders = resp);
+    // Observable
+    // orderService.getAllOrdersFromUrlOb()
+    //   .subscribe(resp => this.orders = resp);
   }
 
   ngOnInit() {
   }
 
+  onLoadDataFromUrl() {
+    this.orderService.loadDataFromUrl()
+      .subscribe(resp => this.orders = resp);
+  }
 }

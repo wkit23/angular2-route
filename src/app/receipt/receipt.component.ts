@@ -21,9 +21,9 @@ export class ReceiptComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach(params => {
       let id = +params['id'];
-      //this.order = this.orderService.getOrder(id);
-      this.orderService.getOrderFromUrl(id)
-        .then(resp => this.order = resp );
+      this.order = this.orderService.getOrder(id);
+      // this.orderService.getOrderFromUrl(id)
+      //   .then(resp => this.order = resp );
     });
   }
 

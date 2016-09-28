@@ -71,6 +71,16 @@ export class OrderService {
     });
   }
 
+  loadDataFromUrl():Observable<Array<Order>> {
+    let ob = this.getAllOrdersFromUrlOb();
+    ob.subscribe(resp => {
+      this._orders = resp;
+      this.save();
+    });
+
+    return ob;
+  }
+
   save(order?:Order) {
     // additional save the order into the list
     if (order) {

@@ -29,12 +29,14 @@ export class ReceiptEditorComponent implements OnInit {
         this.orderDate = this.order.create_time.toISOString().substring(0, 10);
       }
       else {
-        //this.order = this.orderService.getOrder(id);
-        this.orderService.getOrderFromUrl(id)
-          .then(resp => {
-            this.order = resp;
-            this.orderDate = this.order.create_time.toISOString().substring(0, 10);
-          });
+        this.order = this.orderService.getOrder(id);
+        this.orderDate = this.order.create_time.toISOString().substring(0, 10);
+
+        // this.orderService.getOrderFromUrl(id)
+        //   .then(resp => {
+        //     this.order = resp;
+        //     this.orderDate = this.order.create_time.toISOString().substring(0, 10);
+        //   });
       }
     });
   }
