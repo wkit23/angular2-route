@@ -1,4 +1,4 @@
-<h1>{{ order.create_time | date }}</h1>
+<h1>{{ order?.create_time | date }}</h1>
 
 <table class="table table-hover table-bordered">
   <thead>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of order.orderItems">
+    <tr *ngFor="let item of order?.orderItems">
       <td>{{item.name}}</td>
       <td>{{item.quantity}}</td>
       <td>{{item.unitPrice | currency:"MYR"}}</td>
@@ -19,15 +19,15 @@
   <tfoot>
     <tr>
       <td colspan="3" id="table-total-text">Total</td>
-      <td>{{order.orderItems | totalPipe | currency:"MYR"}}</td>
+      <td>{{order?.orderItems | totalPipe | currency:"MYR"}}</td>
     </tr>
     <tr>
       <td colspan="3" id="table-total-text">Tax</td>
-      <td>{{order.orderItems | totalPipe | taxpipe:6 | currency:"MYR"}}</td>
+      <td>{{order?.orderItems | totalPipe | taxpipe:6 | currency:"MYR"}}</td>
     </tr>
     <tr>
       <td colspan="3" id="table-total-text">Total w/Tax</td>
-      <td>{{order.orderItems | totalPipe | taxpipe:106 | currency:"MYR"}}</td>
+      <td>{{order?.orderItems | totalPipe | taxpipe:106 | currency:"MYR"}}</td>
     </tr>
   </tfoot>
 </table>

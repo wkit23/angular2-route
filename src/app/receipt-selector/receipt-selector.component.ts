@@ -11,8 +11,18 @@ import { Order } from '../model/order';
 export class ReceiptSelectorComponent implements OnInit {
   orders:Array<Order>;
 
-  constructor(orderService:OrderService) { 
-    this.orders = orderService.getAllOrder();
+  constructor(orderService:OrderService) {
+    this.orders = [];
+
+    // LocalStorage 
+    //this.orders = orderService.getAllOrder();
+
+    // Promise
+    // orderService.getAllOrdersFromUrl()
+    //   .then(resp => this.orders = resp );
+
+    orderService.getAllOrdersFromUrlOb()
+      .subscribe(resp => this.orders = resp);
   }
 
   ngOnInit() {

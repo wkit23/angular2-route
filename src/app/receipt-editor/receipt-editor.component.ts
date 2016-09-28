@@ -26,12 +26,16 @@ export class ReceiptEditorComponent implements OnInit {
       let id = params['id'];
       if (id == 'new') {
         this.order = new Order([], new Date());
+        this.orderDate = this.order.create_time.toISOString().substring(0, 10);
       }
       else {
-        this.order = this.orderService.getOrder(id);
+        //this.order = this.orderService.getOrder(id);
+        this.orderService.getOrderFromUrl(id)
+          .then(resp => {
+            this.order = resp;
+            this.orderDate = this.order.create_time.toISOString().substring(0, 10);
+          });
       }
-
-      this.orderDate = this.order.create_time.toISOString().substring(0, 10);
     });
   }
 

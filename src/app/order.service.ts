@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Operator, Observable } from 'rxjs';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import { Order } from './model/order';
 import { OrderItem } from './model/orderItem';
@@ -22,6 +24,7 @@ const ORDERS = [
     new OrderItem('Ipad Mini',3,1450)
   ], new Date("2016-01-03"))
 ];
+const URL:string = "data/order.json";
 
 @Injectable()
 export class OrderService {
@@ -35,6 +38,19 @@ export class OrderService {
     return this._orders;
   }
 
+  getAllOrdersFromUrl():Promise<Array<Order>> {
+    return this.http.get(URL).toPromise()
+      .then(resp => this.loadData(resp.json()))
+      .catch(reason => []);
+  }
+
+  getAllOrdersFromUrlOb():Observable<Array<Order>> {
+    return this.http.get(URL)
+      .map(resp => {
+        return this.loadData(resp.json());
+      });
+  }
+
   getOrder(id?:number):Order {
     let allOrders = this.getAllOrder();
     if (id) {
@@ -45,6 +61,14 @@ export class OrderService {
     else {
       return allOrders[0];
     }
+  }
+
+  getOrderFromUrl(id?:number):Promise<Order> {
+    return this.getAllOrdersFromUrl().then(list => {
+      return list.find(item => {
+        return item.id == id;
+      });
+    });
   }
 
   save(order?:Order) {
@@ -74,7 +98,6 @@ export class OrderService {
     }
     else {
       objData = JSON.parse(localData);
-      console.log(objData);
       this._orders = this.loadData(objData);
     }
     return this._orders;
